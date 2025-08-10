@@ -44,26 +44,24 @@ void test(Diagonals result, Diagonals expected) {
 }
 
 int main() {
+  int m1[4][4] = {{1, 2, 3, 4}, {4, 3, 2, 1}, {7, 8, 9, 6}, {6, 5, 4, 3}};
+  test(diagonals(4, m1), (Diagonals){16, 20});
 
-  test(diagonals(
-           4,
-           (int[4][4]){{1, 2, 3, 4}, {4, 3, 2, 1}, {7, 8, 9, 6}, {6, 5, 4, 3}}),
-       (Diagonals){16, 20});
+  int m2[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  test(diagonals(3, m2), (Diagonals){15, 15});
 
-  test(diagonals(3, (int[3][3]){{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}),
-       (Diagonals){15, 15});
+  int m3[3][3] = {{-1, -2, -3}, {-4, -5, -6}, {-7, -8, -9}};
+  test(diagonals(3, m3), (Diagonals){-15, -15});
 
-  test(diagonals(3, (int[3][3]){{-1, -2, -3}, {-4, -5, -6}, {-7, -8, -9}}),
-       (Diagonals){-15, -15});
+  int m4[2][2] = {{10, 20}, {30, 40}};
+  test(diagonals(2, m4), (Diagonals){50, 50});
 
-  test(diagonals(2, (int[2][2]){{10, 20}, {30, 40}}), (Diagonals){50, 50});
-
-  test(diagonals(5, (int[5][5]){{1, 0, 0, 0, 2},
-                                {0, 3, 0, 4, 0},
-                                {5, 0, 6, 0, 7},
-                                {0, 8, 0, 9, 0},
-                                {10, 0, 0, 0, 11}}),
-       (Diagonals){30, 30});
+  int m5[5][5] = {{1, 0, 0, 0, 2},
+                  {0, 3, 0, 4, 0},
+                  {5, 0, 6, 0, 7},
+                  {0, 8, 0, 9, 0},
+                  {10, 0, 0, 0, 11}};
+  test(diagonals(5, m5), (Diagonals){30, 30});
 
   return 0;
 }
