@@ -1,15 +1,12 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Node {
-  struct Node *previous;
-  int value;
-} Node;
 
 typedef struct {
-  Node *top;
   int *v;
+  int size;
 } Stack;
 
 Stack *create() {
@@ -40,7 +37,7 @@ int pop(Stack *stack) {
 
 int peek(Stack *stack) {
   if (is_empty(stack)) {
-    printf("Pilha vazia\n");
+    printf("The stack is empty\n");
     exit(0);
   }
 
@@ -48,7 +45,7 @@ int peek(Stack *stack) {
 }
 
 int main() {
-  char word[] = "barara";
+  char word[] = "arara";
   int word_size = strlen(word);
   Stack *stack = create();
 
@@ -56,13 +53,16 @@ int main() {
     push(stack, word[i]);
   }
 
-  for (int i = 0; i < word_size; i++) {
+  for (int i = 0; i < word_size /2; i++) {
     if (word[i] != pop(stack)) {
       printf("Not a palindrome \n");
-      return 0;
+      break;
     } else {
       printf("Is a palindrome \n");
-      return 0;
+      break;
     }
   }
+
+
+  return 0;
 }
