@@ -1,68 +1,56 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
 
 typedef struct {
+  int tail;
   int *v;
   int size;
-} Stack;
+} Queue;
 
-Stack *create() {
-  Stack *stack = malloc(sizeof(Stack));
-  stack->top = NULL;
-  return stack;
+Queue *criar(int tamanho) {
+  Queue *pilha = malloc(sizeof(Queue));
+  pilha->v = malloc(sizeof(int) * tamanho);
+  pilha->size = tamanho;
+  pilha->tail = 0;
 }
 
-int is_empty(Stack *stack) { return stack->top == NULL; }
+int vazia(Queue *pilha) { return pilha->tail == 0; }
 
-void push(Stack *stack, int value) {
-  Node *node = malloc(sizeof(Node));
-  node->previous = stack->top;
-  node->value = value;
-  stack->top = node;
-}
+int cheia(Queue *pilha) { return pilha->tail == pilha->size; }
 
-int pop(Stack *stack) {
-  if (is_empty(stack)) {
-    return 0;
-  }
-  Node *node = stack->top;
-  stack->top = node->previous;
-  int value = node->value;
-  free(node);
-  return value;
-}
-
-int peek(Stack *stack) {
-  if (is_empty(stack)) {
-    printf("The stack is empty\n");
+int peek(Queue *pilha) {
+  if (!vazia(pilha)) {
+    return pilha->v[pilha->tail - 1];
+  } else {
+    printf("Pilha vazia\n");
     exit(0);
   }
+}
 
-  return stack->top->value;
+void add(Queue *pilha, int valor) {
+  if (!cheia(pilha)) {
+    pilha->v[pilha->tail++] = valor;
+  } else {
+    printf("Pilha cheia\n");
+    exit(0);
+  }
+}
+
+int remove(Queue *pilha) {
+  if (!vazia(pilha)) {
+    return pilha->v[--pilha->tail];
+  }
 }
 
 int main() {
-  char word[] = "arara";
-  int word_size = strlen(word);
-  Stack *stack = create();
+  Queue *pilha = criar(10);
+  int valor = 1;
 
-  for (int i = 0; i < word_size; i++) {
-    push(stack, word[i]);
+  while (!cheia(pilha)) {
+    add(pilha, valor++);
   }
 
-  for (int i = 0; i < word_size /2; i++) {
-    if (word[i] != pop(stack)) {
-      printf("Not a palindrome \n");
-      break;
-    } else {
-      printf("Is a palindrome \n");
-      break;
-    }
+  while (!vazia(pilha)) {
+    printf("%d\n", remove(pilha));
   }
-
-
-  return 0;
 }
